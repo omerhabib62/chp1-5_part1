@@ -65,9 +65,9 @@ const App = () => {
       }
     ]
   };
-  const totalData = [
-    course.parts[0].exercises, course.parts[1].exercises, course.parts[2].exercises
-  ];
+  
+  const totalData = course.parts.map((element) => element.exercises);
+
   return (
     
     <div>
