@@ -1,53 +1,77 @@
 /* eslint-disable react/prop-types */
 
-const Header = ({ course }) => {
-  return (
-    <h1>{course}</h1>
+
+
+const Header = (props) => {
+  return <h1>{props.course}</h1>
+}
+
+const Part = ({ part, exercise}) =>
+{
+  return(
+    <p>
+      {part} {exercise}
+    </p>
+  )
+  
+}
+
+const Content = ( {content} ) => {
+  return (    
+    <div>
+      {
+        content.map((element, index) => (
+          <Part key={index} part={element.name} exercise={element.exercises} />
+        ))
+      }
+    </div>
   );
 };
 
-const Content = ({ part1, exercises1, part2, exercises2, part3, exercises3 }) => {
+
+const Total = ({ content }) => {
+  // Initialize the accumulator (totalExercises) with 0.
+  const totalExercises = content.reduce((accumulator, currentPart) => {
+    // For each element (currentPart) in the content array:
+    // - accumulator starts at 0 in the first iteration.
+    // - In the first iteration: accumulator (0) + currentPart (10) = 10.
+    // - In the second iteration: accumulator (10) + currentPart (7) = 17.
+    // - In the third iteration: accumulator (17) + currentPart (14) = 31.
+    return accumulator + currentPart;
+    // The updated accumulator value is used in the next iteration.
+    // The process continues until all elements in the content array are processed.
+  }, 0);
+
   return (
-    <>
-      <p>
-        {part1} {exercises1}
-      </p>
-      <p>
-        {part2} {exercises2}
-      </p>
-      <p>
-        {part3} {exercises3}
-      </p>
-    </>
+    <p>Number of exercises {totalExercises}</p>
   );
 };
 
-const Total = ({ exercises1, exercises2, exercises3 }) => {
-  return (
-    <p>Number of exercises {exercises1 + exercises2 + exercises3}</p>
-  );
-};
 const App = () => {
-  const course = 'Half Stack application development';
-  const part1 = 'Fundamentals of React';
-  const exercises1 = 10;
-  const part2 = 'Using props to pass data';
-  const exercises2 = 7;
-  const part3 = 'State of a component';
-  const exercises3 = 14;
+  const course = 'Half Stack application development'
+  const part1 = {
+    name: 'Fundamentals of React',
+    exercises: 10
+  }
+  const part2 = {
+    name: 'Using props to pass data',
+    exercises: 7
+  }
+  const part3 = {
+    name: 'State of a component',
+    exercises: 14
+  }
+  const contentData = [part1, part2, part3];
+  const totalData = [part1.exercises, part2.exercises, part3.exercises];
 
   return (
     <div>
       <Header course={course} />
       <Content 
-      part1={part1}
-      exercises1={exercises1}
-      part2={part2}
-      exercises2={exercises2}
-      part3={part3}
-      exercises3={exercises3} />
+        content={contentData}
+       />
       <Total 
-      exercises1={exercises1} exercises2={exercises2} exercises3={exercises3} />
+      content={totalData} />
     </div>
   );
 };
