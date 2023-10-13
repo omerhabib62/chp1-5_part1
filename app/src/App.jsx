@@ -28,9 +28,9 @@ const Content = ( {content} ) => {
 };
 
 
-const Total = ({ content }) => {
+const Total = ({ parts }) => {
   // Initialize the accumulator (totalExercises) with 0.
-  const totalExercises = content.reduce((accumulator, currentPart) => {
+  const totalExercises = parts.reduce((accumulator, currentPart) => {
     // For each element (currentPart) in the content array:
     // - accumulator starts at 0 in the first iteration.
     // - In the first iteration: accumulator (0) + currentPart (10) = 10.
@@ -70,11 +70,8 @@ const App = () => {
   return (
     <div>
       <Header course={course} />
-      <Content 
-        content={parts}
-       />
-      <Total 
-      content={totalData} />
+      <Content parts={parts} />
+      <Total parts={totalData} />
     </div>
   );
 };
